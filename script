@@ -1,18 +1,18 @@
 #!/bin/bash
-echo -n "Enter Fingerprint: "
-read finger
-echo -n "Enter Token: "
-read token
+echo -n "Enter Name: "
+read name
+echo -n "Enter Tag: "
+read tag
 echo provider '"digitalocean"' { >> vps1.tf
-  echo token = '"'$token'"'}  >> vps1.tf
+  echo token = '"${var.token-do-rebrain}"'}  >> vps1.tf
 echo resource '"digitalocean_tag" "foobar"' { >> vps1.tf
-echo   name = '"raidon35"'}  >> vps1.tf
+echo   name = '"'$tag'"'}  >> vps1.tf
 echo  resource '"digitalocean_droplet" "web" '{  >> vps1.tf
   echo   image  = '"ubuntu-18-04-x64"' >> vps1.tf
- echo  name   = '"RavshanYuldashev"' >> vps1.tf
+ echo  name   = '"'$name'"' >> vps1.tf
  echo  region = '"nyc1" ' >> vps1.tf
  echo size   = '"s-1vcpu-1gb" ' >> vps1.tf
-echo ssh_keys = ['"'$finger'"']} >> vps1.tf
-terraform init
-terraform apply
+echo ssh_keys = ['"${var.fingerprint}"']} >> vps1.tf
+#terraform init
+#terraform apply
 
